@@ -1,0 +1,14 @@
+@media (max-width: 978px) {
+  .dashboard-container {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.image-upload > input {
+  display: none;
+}
+
+.upload-file {
+  width: auto;
+}

@@ -1,0 +1,7 @@
+{
+  "name": "fshare",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

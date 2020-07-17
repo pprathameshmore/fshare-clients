@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">FShare</string>
+    <string name="title_activity_main">FShare</string>
+    <string name="package_name">com.pprathameshmore.fshare</string>
+    <string name="custom_url_scheme">com.pprathameshmore.fshare</string>
+</resources>

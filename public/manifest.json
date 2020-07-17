@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "FShare",
+  "name": "FShare - Made Simple, Secure File Sharing on the Web",
   "icons": [
     {
       "src": "favicon.ico",
