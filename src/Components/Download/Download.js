@@ -18,6 +18,7 @@ export class Download extends Component {
       givenPassword: "",
       isPasswordWrong: false,
       isFileAvailable: false,
+      downloadProcessing: false,
     };
 
     this.fileId = props.match.params.fileId;
@@ -49,7 +50,7 @@ export class Download extends Component {
 
   downloadFile = () => {
     Axios.post(
-      `${API_URL}/api/v1/downloads/${this.fileId}/`,
+      `${API_URL}/api/v1/downloads/${this.fileId}`,
       {
         password: this.state.givenPassword,
       },
@@ -61,14 +62,9 @@ export class Download extends Component {
         console.log(data.headers);
         console.log(data.status);
         download(data.data, this.state.file.name, "application/zip");
-
-        /* fileDownloader(
-          `data:${data.data.type},${data.data}`,
-          this.state.file.name,
-          data.data.type
-        ); */
         this.setState({
           isPasswordWrong: false,
+          downloadProcessing: true,
         });
       })
       .catch((error) => {
@@ -90,7 +86,7 @@ export class Download extends Component {
       fileSize,
     } = this.state.file;
 
-    const { isPasswordWrong, isFileAvailable } = this.state;
+    const { isPasswordWrong, isFileAvailable, downloadProcessing } = this.state;
     return (
       <div className="container downloader-container">
         <h2>File shared using FShare</h2>
@@ -120,9 +116,13 @@ export class Download extends Component {
                 </div>
               ) : null}
               <br></br>
-              <button className="btn btn-success" onClick={this.downloadFile}>
-                Download File
-              </button>
+              {downloadProcessing ? (
+                <p>Preparing your download. Please wait...</p>
+              ) : (
+                <button className="btn btn-success" onClick={this.downloadFile}>
+                  Download File
+                </button>
+              )}
             </div>
           </div>
         ) : (
