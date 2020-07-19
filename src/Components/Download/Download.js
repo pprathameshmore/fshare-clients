@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Axios from "axios";
-import fileDownloader from "js-file-download";
-import { saveAs } from "file-saver";
 import download from "downloadjs";
+import moment from "moment";
 import "./Download.css";
 
 import { API_URL } from "../../Configs/index";
-import { contextType } from "react-fontawesome";
 
 export class Download extends Component {
   constructor(props) {
@@ -95,7 +93,7 @@ export class Download extends Component {
             <div class="card-body">
               <h5 class="card-title">{name}</h5>
               <h6 class="card-subtitle mb-2 text-muted">
-                Uploaded: {createdAt}
+                {moment().from(createdAt)} ago
               </h6>
               <p class="card-text">Message: {message}</p>
               <p class="card-text">
@@ -132,7 +130,6 @@ export class Download extends Component {
             <h2>Hmm! File not available ☹</h2>
           </div>
         )}
-        ;
       </div>
     );
   }
