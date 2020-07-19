@@ -210,7 +210,7 @@ export class Dashboard extends Component {
         </div>
       ) : (
         <div className="container d-flex justify-content-center">
-          <div className="card">
+          <div className="card animate__fadeIn animate__animated">
             <div className="card-body upload-file">
               <div className="text-center">
                 <img

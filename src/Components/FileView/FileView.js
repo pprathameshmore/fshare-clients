@@ -59,7 +59,7 @@ export class FileView extends Component {
     const { isFailed } = this.state;
     return (
       <div
-        className="col-sm-12 col-md-6 col-lg-4 fileview-container"
+        className="col-sm-12 col-md-6 col-lg-4 fileview-container animate__fadeIn animate__animated"
         id={"card" + id}
         key={"card-key" + id}
       >
