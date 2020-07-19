@@ -40,6 +40,10 @@ export class FileView extends Component {
       });
   };
 
+  copyToClipboardLink = (event) => {
+    navigator.clipboard.writeText(event.target.id);
+  };
+
   render(props) {
     const {
       id,
@@ -53,13 +57,13 @@ export class FileView extends Component {
       fileSize,
       createdAt,
     } = this.props.file;
-    const isFailed = this.state.isFailed;
+    const { isFailed } = this.state;
     return (
       <div
         className="col-sm-12 col-md-6 col-lg-4 fileview-container"
         id={"card" + id}
       >
-        <div className="card mb-5 bg-white rounded animate__fadeInUp animate__animated">
+        <div className="card mb-5 bg-white rounded">
           <div className="card-body">
             {isFailed ? (
               <div>
@@ -81,7 +85,9 @@ export class FileView extends Component {
                 <p className="card-text">
                   File size: {(fileSize / 1000000).toFixed()} MB.
                 </p>
-                <p className="card-text">Short URL: {shortUrl}.</p>
+                <p className="card-text">
+                  Short URL: <a href={shortUrl}>{shortUrl} </a>
+                </p>
                 <p className="card-text">
                   Expire in:{" "}
                   {expire === 1 ? <p> {expire} day</p> : <p> {expire} days </p>}
@@ -91,7 +97,12 @@ export class FileView extends Component {
                   <a href={`/download/${id}`}>
                     <img src={download} alt="Download file" />
                   </a>
-                  <img src={share} alt="Share file" />
+                  <img
+                    src={share}
+                    alt="Share file"
+                    id={shortUrl}
+                    onClick={this.copyToClipboardLink}
+                  />
                   {password ? (
                     <img
                       src={lock}
