@@ -101,7 +101,9 @@ export class Download extends Component {
               <p class="card-text">
                 File Size: {(fileSize / 1000000).toFixed()} MB
               </p>
-              <p class="card-text">Short URL: {shortUrl} </p>
+              <p class="card-text">
+                Short URL: <a href={shortUrl}> {shortUrl}</a>{" "}
+              </p>
               <p class="card-text">Downloads: {downloads}</p>
               {password ? (
                 <div>
