@@ -18,6 +18,7 @@ export class Download extends Component {
       isFileAvailable: false,
       isFile: false,
       downloadProcessing: false,
+      downloading: false,
     };
 
     this.fileId = props.match.params.fileId;
@@ -65,7 +66,7 @@ export class Download extends Component {
         download(data.data, this.state.file.name, "application/zip");
         this.setState({
           isPasswordWrong: false,
-          downloadProcessing: true,
+          downloading: true,
         });
       })
       .catch((error) => {
@@ -87,28 +88,33 @@ export class Download extends Component {
       fileSize,
     } = this.state.file;
 
-    const { isPasswordWrong, isFileAvailable, downloadProcessing } = this.state;
+    const {
+      isPasswordWrong,
+      isFileAvailable,
+      downloadProcessing,
+      downloading,
+    } = this.state;
     const online = navigator.onLine;
 
     if (online) {
       return (
-        <div className="container downloader-container">
+        <div className="container downloader-container animate__fadeIn animate__animated">
           <h2>File shared using FShare</h2>
           {isFileAvailable ? (
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{name}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">{name}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">
                   {moment().from(createdAt)} ago
                 </h6>
-                <p class="card-text">Message: {message}</p>
-                <p class="card-text">
+                <p className="card-text">Message: {message}</p>
+                <p className="card-text">
                   File Size: {(fileSize / 1000000).toFixed()} MB
                 </p>
-                <p class="card-text">
+                <p className="card-text">
                   Short URL: <a href={shortUrl}> {shortUrl}</a>{" "}
                 </p>
-                <p class="card-text">Downloads: {downloads}</p>
+                <p className="card-text">Downloads: {downloads}</p>
                 {password ? (
                   <div>
                     <input
@@ -123,10 +129,18 @@ export class Download extends Component {
                 ) : null}
                 <br></br>
                 {downloadProcessing ? (
-                  <p>Preparing your download. Please wait...</p>
+                  downloading ? (
+                    <p className="animate__animated animate__flash">
+                      Downloading...
+                    </p>
+                  ) : (
+                    <p className="animate__animated animate__flash">
+                      Preparing your download. Please wait...
+                    </p>
+                  )
                 ) : (
                   <button
-                    className="btn btn-success"
+                    className="btn btn-success animate__animated animate__pulse"
                     onClick={this.downloadFile}
                   >
                     Download File
