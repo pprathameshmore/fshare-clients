@@ -62,6 +62,7 @@ export class FileView extends Component {
       <div
         className="col-sm-12 col-md-6 col-lg-4 fileview-container"
         id={"card" + id}
+        key={"card-key" + id}
       >
         <div className="card mb-5 bg-white rounded">
           <div className="card-body">
@@ -79,7 +80,17 @@ export class FileView extends Component {
                 <div className="col">
                   <img src={zip} alt="zip_file" />
                 </div>
-                <p className="card-text">Message: {message}.</p>
+                <p className="card-text">Message: </p>
+                <p
+                  className="text-truncate"
+                  data-toggle="collapse"
+                  data-target={"#message-" + id}
+                >
+                  {message}
+                </p>
+                <div id={"message-" + id} class="collapse">
+                  {message}
+                </div>
                 <p className="card-text">Downloads: {downloads}.</p>
                 <p className="card-text">Downloads limit: {downloadLimit}.</p>
                 <p className="card-text">
@@ -91,7 +102,6 @@ export class FileView extends Component {
                 <p className="card-text">
                   Expire in:{" "}
                   {expire === 1 ? <p> {expire} day</p> : <p> {expire} days </p>}
-                  .
                 </p>
                 <div className="row">
                   <a href={`/download/${id}`}>
