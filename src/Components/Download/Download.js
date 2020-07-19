@@ -128,7 +128,7 @@ export class Download extends Component {
                   </div>
                 ) : null}
                 <br></br>
-                {downloadProcessing ? (
+                {downloadProcessing && !isPasswordWrong ? (
                   downloading ? (
                     <p className="animate__animated animate__flash">
                       Downloading...
