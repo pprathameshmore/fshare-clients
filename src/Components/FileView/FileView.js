@@ -29,7 +29,6 @@ export class FileView extends Component {
     const fileId = event.target.id;
     Axios.delete(`${API_URL}/api/v1/files/${fileId}`, headerConfig)
       .then((removedFile) => {
-        console.log(removedFile);
         document.getElementById("card" + fileId).remove();
       })
       .catch((error) => {
@@ -88,7 +87,7 @@ export class FileView extends Component {
                 >
                   {message}
                 </p>
-                <div id={"message-" + id} class="collapse">
+                <div id={"message-" + id} className="collapse">
                   {message}
                 </div>
                 <p className="card-text">Downloads: {downloads}.</p>
@@ -99,10 +98,10 @@ export class FileView extends Component {
                 <p className="card-text">
                   Short URL: <a href={shortUrl}>{shortUrl} </a>
                 </p>
-                <p className="card-text">
+                <div className="card-text">
                   Expire in:{" "}
                   {expire === 1 ? <p> {expire} day</p> : <p> {expire} days </p>}
-                </p>
+                </div>
                 <div className="row">
                   <a href={`/download/${id}`}>
                     <img src={download} alt="Download file" />

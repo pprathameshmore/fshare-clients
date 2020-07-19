@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import Homepage from "./Components/Homepage/Homepage";
-import Dashboard from "./Components/Dashboard/Dashboard";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Download from "./Components/Download/Download";
 

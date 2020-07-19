@@ -16,6 +16,7 @@ export class Download extends Component {
       givenPassword: "",
       isPasswordWrong: false,
       isFileAvailable: false,
+      isFile: false,
       downloadProcessing: false,
     };
 
@@ -29,6 +30,7 @@ export class Download extends Component {
         this.setState({
           file: data.data,
           isFileAvailable: true,
+          isFile: true,
         });
       })
       .catch((error) => {
@@ -47,6 +49,9 @@ export class Download extends Component {
   };
 
   downloadFile = () => {
+    this.setState({
+      downloadProcessing: true,
+    });
     Axios.post(
       `${API_URL}/api/v1/downloads/${this.fileId}`,
       {
@@ -57,8 +62,6 @@ export class Download extends Component {
       }
     )
       .then((data) => {
-        console.log(data.headers);
-        console.log(data.status);
         download(data.data, this.state.file.name, "application/zip");
         this.setState({
           isPasswordWrong: false,
@@ -85,53 +88,66 @@ export class Download extends Component {
     } = this.state.file;
 
     const { isPasswordWrong, isFileAvailable, downloadProcessing } = this.state;
-    return (
-      <div className="container downloader-container">
-        <h2>File shared using FShare</h2>
-        {isFileAvailable ? (
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{name}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">
-                {moment().from(createdAt)} ago
-              </h6>
-              <p class="card-text">Message: {message}</p>
-              <p class="card-text">
-                File Size: {(fileSize / 1000000).toFixed()} MB
-              </p>
-              <p class="card-text">
-                Short URL: <a href={shortUrl}> {shortUrl}</a>{" "}
-              </p>
-              <p class="card-text">Downloads: {downloads}</p>
-              {password ? (
-                <div>
-                  <input
-                    type="password"
-                    placeholder="Enter file password"
-                    onChange={this.passwordHandler}
-                  />
-                  {isPasswordWrong ? (
-                    <div>You entered wrong password</div>
-                  ) : null}
-                </div>
-              ) : null}
-              <br></br>
-              {downloadProcessing ? (
-                <p>Preparing your download. Please wait...</p>
-              ) : (
-                <button className="btn btn-success" onClick={this.downloadFile}>
-                  Download File
-                </button>
-              )}
+    const online = navigator.onLine;
+
+    if (online) {
+      return (
+        <div className="container downloader-container">
+          <h2>File shared using FShare</h2>
+          {isFileAvailable ? (
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{name}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                  {moment().from(createdAt)} ago
+                </h6>
+                <p class="card-text">Message: {message}</p>
+                <p class="card-text">
+                  File Size: {(fileSize / 1000000).toFixed()} MB
+                </p>
+                <p class="card-text">
+                  Short URL: <a href={shortUrl}> {shortUrl}</a>{" "}
+                </p>
+                <p class="card-text">Downloads: {downloads}</p>
+                {password ? (
+                  <div>
+                    <input
+                      type="password"
+                      placeholder="Enter file password"
+                      onChange={this.passwordHandler}
+                    />
+                    {isPasswordWrong ? (
+                      <div>You entered wrong password</div>
+                    ) : null}
+                  </div>
+                ) : null}
+                <br></br>
+                {downloadProcessing ? (
+                  <p>Preparing your download. Please wait...</p>
+                ) : (
+                  <button
+                    className="btn btn-success"
+                    onClick={this.downloadFile}
+                  >
+                    Download File
+                  </button>
+                )}
+              </div>
+              <div>
+                <a href="https://fshare.netlify.app/">Sign up</a> for free and
+                start sharing!
+              </div>
             </div>
-          </div>
-        ) : (
-          <div>
-            <h2>Hmm! File not available ☹</h2>
-          </div>
-        )}
-      </div>
-    );
+          ) : (
+            <div>
+              <h2>File not found</h2>
+            </div>
+          )}
+        </div>
+      );
+    } else {
+      return <h1 className="text-center">No internet</h1>;
+    }
   }
 }
 

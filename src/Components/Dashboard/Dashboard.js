@@ -81,7 +81,6 @@ export class Dashboard extends Component {
 
   fileSelectHandler = (event) => {
     const addFiles = event.target.files;
-    console.log(event.target.files);
 
     if (addFiles.length) {
       let totalFileSize = 0;
@@ -115,7 +114,6 @@ export class Dashboard extends Component {
   };
 
   fileUploadHandler = () => {
-    console.log("Uploading");
     const fileData = new FormData();
 
     if (!this.state.selectedFile) {
@@ -160,8 +158,6 @@ export class Dashboard extends Component {
             isUploadingInBackground: false,
             fileSize: 0,
           });
-          console.log("State is now updated");
-          console.log(this.state.files);
         })
         .catch((error) => {
           this.setState({
@@ -208,8 +204,8 @@ export class Dashboard extends Component {
 
     return isSelectingFile ? (
       networkError ? (
-        <div>
-          <img src={error} alt="Network error" />
+        <div className="container">
+          <img className="img-fluid" src={error} alt="Network error" />
           <h2>Something went wrong</h2>
         </div>
       ) : (
@@ -338,7 +334,7 @@ export class Dashboard extends Component {
         </div>
       )
     ) : (
-      <div className="container dashboard-container">
+      <div className="container">
         <Navbar />
         <div className="intro-text text-center">
           <h3>Click here to send files up to 1.5 GB</h3>
@@ -378,7 +374,7 @@ export class Dashboard extends Component {
           ) : (
             <div className="row">
               {files.map((file) => {
-                return <FileView file={file} />;
+                return <FileView file={file} key={`files` + file.id} />;
               })}
             </div>
           )}

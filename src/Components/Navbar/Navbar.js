@@ -36,9 +36,6 @@ export default class Navbar extends Component {
             <a className="nav-item nav-link active btn" href="/">
               Home <span className="sr-only">(current)</span>
             </a>
-            <a className="nav-item nav-link btn" href="#">
-              Features
-            </a>
             <a
               className="nav-item nav-link btn"
               href="/"
