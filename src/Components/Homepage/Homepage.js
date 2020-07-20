@@ -116,6 +116,18 @@ export class Homepage extends Component {
               </div>{" "}
             </div>{" "}
           </div>
+          <p>
+            Designed and coded by{" "}
+            <a href="https://pprathameshmore.github.io/">Prathamesh More</a>{" "}
+          </p>
+          <a href="https://www.privacypolicygenerator.info/live.php?token=QTRkoMdsesSohyGrrcMCeNN2Xx62dmyL">
+            Privacy Policy for FShare
+          </a>{" "}
+          |
+          <a href="https://documenter.getpostman.com/view/8028791/T1DmCdhX">
+            API Documentation
+          </a>{" "}
+          |<a href="https://github.com/pprathameshmore/">Open Source</a>
         </div>
       );
     }
