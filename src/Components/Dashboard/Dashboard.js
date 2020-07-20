@@ -169,6 +169,18 @@ export class Dashboard extends Component {
     }
   };
 
+  refreshFiles = () => {
+    Axios.get(`${API_URL}/api/v1/files`, this.headerConfig).then(({ data }) => {
+      this.setState({
+        files: data.data,
+        selectedFile: null,
+        isSelectingFile: false,
+        refreshPage: true,
+        fileSize: 0,
+      });
+    });
+  };
+
   cancelHandler = () => {
     Axios.get(`${API_URL}/api/v1/files`, this.headerConfig).then(({ data }) => {
       this.setState({
@@ -359,7 +371,7 @@ export class Dashboard extends Component {
         <div className="container">
           <div className="text-center">
             <h3>Your uploaded files</h3>
-            <img src={folder} className="text-center img-fluid" alt="folder" />
+            <p onClick={this.refreshFiles}>Refresh library</p>
           </div>
           {isLoading ? (
             <div className="text-center">
@@ -369,7 +381,7 @@ export class Dashboard extends Component {
           ) : files.length === 0 ? (
             <div className="text-center">
               <img className="img-fluid" src={forest} alt="Downloading files" />
-              <h2>Hmm! We don't have anything to show here! 🙄</h2>
+              <h2>Hmm! We don't have anything to show here!</h2>
             </div>
           ) : (
             <div className="row">

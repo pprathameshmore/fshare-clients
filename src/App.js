@@ -3,6 +3,7 @@ import "./App.css";
 import Homepage from "./Components/Homepage/Homepage";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Download from "./Components/Download/Download";
+import NotFound from "./Components/NotFound/NotFound";
 
 export class App extends Component {
   render() {
@@ -15,6 +16,7 @@ export class App extends Component {
           <Route path="/download/:fileId">
             <Download />
           </Route>
+          <Route path="*" exact={true} component={NotFound} />
         </Switch>
       </BrowserRouter>
     );
