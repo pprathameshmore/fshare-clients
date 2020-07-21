@@ -7,6 +7,7 @@ import "./Download.css";
 
 import { API_URL } from "../../Configs/index";
 import Footer from "../Footer/Footer";
+import QRCodeGenerate from "../QRCode/QRCodeGenerate";
 
 export class Download extends Component {
   constructor(props) {
@@ -99,50 +100,58 @@ export class Download extends Component {
           {isFileAvailable ? (
             <div className="card">
               <div className="card-body">
-                <img src={zipIcon} alt="zip icon" />
-                <h5 className="card-title">{name}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">
-                  {moment().from(createdAt)} ago
-                </h6>
-                <p className="card-text">Message: {message}</p>
-                <p className="card-text">
-                  File Size: {(fileSize / 1000000).toFixed()} MB
-                </p>
-                <p className="card-text">
-                  Short URL: <a href={shortUrl}> {shortUrl}</a>{" "}
-                </p>
-                <p className="card-text">Downloads: {downloads}</p>
-                {password ? (
-                  <div>
-                    <input
-                      type="password"
-                      placeholder="Enter file password"
-                      onChange={this.passwordHandler}
-                    />
-                    {isPasswordWrong ? (
-                      <div>You entered wrong password</div>
+                <div className="row">
+                  <div className="col">
+                    <img src={zipIcon} alt="zip icon" />
+
+                    <h5 className="card-title">{name}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                      {moment().from(createdAt)} ago
+                    </h6>
+                    <p className="card-text">Message: {message}</p>
+                    <p className="card-text">
+                      File Size: {(fileSize / 1000000).toFixed()} MB
+                    </p>
+                    <p className="card-text">
+                      Short URL: <a href={shortUrl}> {shortUrl}</a>{" "}
+                    </p>
+                    <p className="card-text">Downloads: {downloads}</p>
+                    {password ? (
+                      <div>
+                        <input
+                          type="password"
+                          placeholder="Enter file password"
+                          onChange={this.passwordHandler}
+                        />
+                        {isPasswordWrong ? (
+                          <div>You entered wrong password</div>
+                        ) : null}
+                      </div>
                     ) : null}
+                    <br></br>
+                    {downloadProcessing && !isPasswordWrong ? (
+                      downloading ? (
+                        <p className="animate__animated animate__flash">
+                          Downloading...
+                        </p>
+                      ) : (
+                        <p className="animate__animated animate__flash">
+                          Preparing your download. Please wait...
+                        </p>
+                      )
+                    ) : (
+                      <button
+                        className="btn btn-success animate__animated animate__pulse"
+                        onClick={this.downloadFile}
+                      >
+                        Download File
+                      </button>
+                    )}
                   </div>
-                ) : null}
-                <br></br>
-                {downloadProcessing && !isPasswordWrong ? (
-                  downloading ? (
-                    <p className="animate__animated animate__flash">
-                      Downloading...
-                    </p>
-                  ) : (
-                    <p className="animate__animated animate__flash">
-                      Preparing your download. Please wait...
-                    </p>
-                  )
-                ) : (
-                  <button
-                    className="btn btn-success animate__animated animate__pulse"
-                    onClick={this.downloadFile}
-                  >
-                    Download File
-                  </button>
-                )}
+                  <div className="col text-center">
+                    <QRCodeGenerate url={shortUrl} />
+                  </div>
+                </div>
               </div>
               <div className="container">
                 <a href="https://fshare.netlify.app/">Sign up</a> for free and
