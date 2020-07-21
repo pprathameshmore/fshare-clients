@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Axios from "axios";
 import moment from "moment";
+import zipIcon from "../FileView/icons/zip.png";
 import "./Download.css";
 
 import { API_URL } from "../../Configs/index";
+import Footer from "../Footer/Footer";
 
 export class Download extends Component {
   constructor(props) {
@@ -97,6 +99,7 @@ export class Download extends Component {
           {isFileAvailable ? (
             <div className="card">
               <div className="card-body">
+                <img src={zipIcon} alt="zip icon" />
                 <h5 className="card-title">{name}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">
                   {moment().from(createdAt)} ago
@@ -141,26 +144,11 @@ export class Download extends Component {
                   </button>
                 )}
               </div>
-              <div>
+              <div className="container">
                 <a href="https://fshare.netlify.app/">Sign up</a> for free and
                 start sharing!
               </div>
-              <div>
-                <p>
-                  Designed and coded by{" "}
-                  <a href="https://pprathameshmore.github.io/">
-                    Prathamesh More
-                  </a>{" "}
-                </p>
-                <a href="https://www.privacypolicygenerator.info/live.php?token=QTRkoMdsesSohyGrrcMCeNN2Xx62dmyL">
-                  Privacy Policy for FShare
-                </a>{" "}
-                |
-                <a href="https://documenter.getpostman.com/view/8028791/T1DmCdhX">
-                  API Documentation
-                </a>
-                |<a href="https://github.com/pprathameshmore/">Open Source</a>
-              </div>
+              <Footer />
             </div>
           ) : (
             <div>

@@ -4,6 +4,7 @@ import Dashboard from "../Dashboard/Dashboard";
 //import { API_URL } from "../../Configs/index";
 import "./Homepage.css";
 import GoogleSignInBtn from "./icons/btn_google_signin_light_focus_web.png";
+import Footer from "../Footer/Footer";
 const socket = io("https://fshare-auth.azurewebsites.net");
 
 export class Homepage extends Component {
@@ -91,13 +92,13 @@ export class Homepage extends Component {
       return <Dashboard token={token} username={username} />;
     } else {
       return (
-        <div className="container home-container">
+        <div className="container">
           <div className="card shadow p-3 mb-5 bg-white rounded auth-card-mobile auth-card-desktop">
             <div className="row">
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <div className="intro-text">
                   <h2 className="display-4">
-                    FShare - Made Simple, Secure File Sharing on the Internet.{" "}
+                    FShare - Made Simple, Secure File Sharing on the Web.{" "}
                   </h2>{" "}
                   <p>Never let your files stay on the Internet again.</p>{" "}
                 </div>{" "}
@@ -116,18 +117,7 @@ export class Homepage extends Component {
               </div>{" "}
             </div>{" "}
           </div>
-          <p>
-            Designed and coded by{" "}
-            <a href="https://pprathameshmore.github.io/">Prathamesh More</a>{" "}
-          </p>
-          <a href="https://www.privacypolicygenerator.info/live.php?token=QTRkoMdsesSohyGrrcMCeNN2Xx62dmyL">
-            Privacy Policy for FShare
-          </a>{" "}
-          |
-          <a href="https://documenter.getpostman.com/view/8028791/T1DmCdhX">
-            API Documentation
-          </a>{" "}
-          |<a href="https://github.com/pprathameshmore/">Open Source</a>
+          <Footer />
         </div>
       );
     }
