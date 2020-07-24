@@ -169,18 +169,6 @@ export class Dashboard extends Component {
     }
   };
 
-  refreshFiles = () => {
-    Axios.get(`${API_URL}/api/v1/files`, this.headerConfig).then(({ data }) => {
-      this.setState({
-        files: data.data,
-        selectedFile: null,
-        isSelectingFile: false,
-        refreshPage: true,
-        fileSize: 0,
-      });
-    });
-  };
-
   cancelHandler = () => {
     Axios.get(`${API_URL}/api/v1/files`, this.headerConfig).then(({ data }) => {
       this.setState({
@@ -346,7 +334,7 @@ export class Dashboard extends Component {
         </div>
       )
     ) : (
-      <div className="container">
+      <div className="container-fluid">
         <Navbar />
         <div className="intro-text text-center">
           <h3>Click here to send files up to 1.5 GB</h3>
@@ -368,10 +356,9 @@ export class Dashboard extends Component {
             />
           )}
         </div>
-        <div className="container">
+        <div className="container-fluid">
           <div className="text-center">
             <h3>Your uploaded files</h3>
-            <p onClick={this.refreshFiles}>Refresh library</p>
           </div>
           {isLoading ? (
             <div className="text-center">
