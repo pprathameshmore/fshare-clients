@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Axios from "axios";
 import moment from "moment";
+import fileDownload from "js-file-download";
 import zipIcon from "../FileView/icons/zip.png";
 import "./Download.css";
 
@@ -55,16 +56,19 @@ export class Download extends Component {
     this.setState({
       downloadProcessing: true,
     });
-    Axios.post(`${API_URL}/api/v1/downloads/${this.fileId}`, {
-      password: this.state.givenPassword,
-    })
+    Axios.post(
+      `${API_URL}/api/v1/downloads/${this.fileId}`,
+      {
+        password: this.state.givenPassword,
+      },
+      { responseType: "arraybuffer" }
+    )
       .then((data) => {
-        console.log(data.data);
         this.setState({
           isPasswordWrong: false,
           downloading: true,
         });
-        window.open(data.data.data.downloadURL, "_blank");
+        fileDownload(data.data, this.state.file.name);
       })
       .catch((error) => {
         console.log(error);
