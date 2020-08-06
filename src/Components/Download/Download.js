@@ -61,9 +61,7 @@ export class Download extends Component {
       {
         password: this.state.givenPassword,
       },
-      {
-        responseType: "arraybuffer",
-      }
+      { responseType: "arraybuffer" }
     )
       .then((data) => {
         this.setState({
