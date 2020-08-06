@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 import Dashboard from "../Dashboard/Dashboard";
-//import { API_URL } from "../../Configs/index";
+import { AUTH_SERVER } from "../../Configs/index";
 import "./Homepage.css";
 import GoogleSignInBtn from "./icons/btn_google_signin_light_focus_web.png";
 import Footer from "../Footer/Footer";
-const socket = io("https://fshare-auth.azurewebsites.net");
+const socket = io(AUTH_SERVER);
 
 export class Homepage extends Component {
   constructor() {
     super();
     this.state = {
       user: {},
+      accessToken: "",
+      refreshToken: "",
       disabled: "",
     };
     this.popup = null;
@@ -43,7 +45,7 @@ export class Homepage extends Component {
     const left = window.innerWidth / 2 - width / 2;
     const top = window.innerHeight / 2 - height / 2;
 
-    const url = `https://fshare-auth.azurewebsites.net/api/v1/auth/google?socketId=${socket.id}`;
+    const url = `${AUTH_SERVER}/api/v1/auth/google?socketId=${socket.id}`;
 
     return window.open(
       url,
@@ -76,20 +78,26 @@ export class Homepage extends Component {
   componentDidMount() {
     socket.on("user", (user) => {
       this.popup.close();
+      console.log(user);
+      const accessToken = user.accessToken;
+      const refreshToken = user.refreshToken;
       this.setState({
-        user,
+        accessToken,
+        refreshToken,
       });
-      window.localStorage.setItem("username", this.state.user.username);
-      window.localStorage.setItem("token", this.state.user.sendToken);
+      window.localStorage.setItem("accessToken", this.state.accessToken);
+      window.localStorage.setItem("refreshToken", this.state.refreshToken);
     });
   }
 
   render(props) {
     const { disabled } = this.state;
-    const token = localStorage.getItem("token");
-    const username = localStorage.getItem("username");
-    if (token) {
-      return <Dashboard token={token} username={username} />;
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (accessToken) {
+      return (
+        <Dashboard accessToken={accessToken} refreshToken={refreshToken} />
+      );
     } else {
       return (
         <div className="container">

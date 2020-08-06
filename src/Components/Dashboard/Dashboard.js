@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { API_URL } from "../../Configs/index";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
+import { API_URL, AUTH_SERVER } from "../../Configs/index";
 import FileView from "../FileView/FileView";
 import Navbar from "../Navbar/Navbar";
 import "./Dashboard.css";
 import add from "./icons/add.png";
 import forest from "./icons/forest.png";
 import process from "./icons/process.png";
-import folder from "./icons/folder_search.png";
 import cloud from "./icons/cloud.png";
 import remove from "./icons/delete.png";
 import spinner from "./icons/spinner.png";
@@ -34,10 +34,20 @@ export class Dashboard extends Component {
       isUploadingCrashed: false,
       networkError: false,
     };
-    this.token = window.localStorage.getItem("token");
+    this.refreshAuthLogic = (failedRequest) =>
+      Axios.post(`${AUTH_SERVER}/api/v1/auth/token`, {
+        refreshToken: localStorage.getItem("refreshToken"),
+      }).then((tokenRefreshResponse) => {
+        localStorage.setItem("accessToken", tokenRefreshResponse.data.data);
+        failedRequest.response.config.headers["Authorization"] =
+          "Bearer " + tokenRefreshResponse.data.data;
+        return Promise.resolve();
+      });
+    createAuthRefreshInterceptor(Axios, this.refreshAuthLogic);
+    this.accessToken = window.localStorage.getItem("accessToken");
     this.headerConfig = {
       headers: {
-        Authorization: `Bearer ${this.token}`,
+        Authorization: `Bearer ${this.accessToken}`,
         "content-type": "multipart/form-data",
       },
     };
@@ -148,7 +158,6 @@ export class Dashboard extends Component {
         },
       })
         .then((response) => {
-          console.log(response.data);
           this.setState({
             isSelectingFile: false,
             refreshPage: true,
