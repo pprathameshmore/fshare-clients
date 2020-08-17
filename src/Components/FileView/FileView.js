@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import moment from "moment";
+import { Link } from "react-router-dom";
 import { API_URL } from "../../Configs/index";
 
 import "./FileView.css";
@@ -68,7 +69,12 @@ export class FileView extends Component {
             {isFailed ? (
               <div>
                 <img className="img-fluid" src={error} alt="failed" />
-                <h2>Hmm! We guess that your internet is not working! 🤔</h2>
+                <h2>
+                  Hmm! We guess that your internet is not working!{" "}
+                  <span role="img" aria-label="emoji">
+                    🤔
+                  </span>
+                </h2>
               </div>
             ) : (
               <div>
@@ -103,9 +109,9 @@ export class FileView extends Component {
                   {expire === 1 ? <p> {expire} day</p> : <p> {expire} days </p>}
                 </div>
                 <div className="row">
-                  <a href={`/download/${id}`}>
+                  <Link to={`/download/${id}`}>
                     <img src={download} alt="Download file" />
-                  </a>
+                  </Link>
                   <img
                     src={share}
                     alt="Share file"
