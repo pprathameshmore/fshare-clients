@@ -35,7 +35,6 @@ export class Homepage extends Component {
       }
     }, 1000);
   }
-
   // Launches the popup on the server and passes along the socket id so it
   // can be used to send back user data to the appropriate socket on
   // the connected client.

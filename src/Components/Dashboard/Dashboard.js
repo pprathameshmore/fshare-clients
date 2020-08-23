@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import { appHistory } from "../../App";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { API_URL, AUTH_SERVER } from "../../Configs/index";
 import FileView from "../FileView/FileView";
@@ -162,11 +163,11 @@ export class Dashboard extends Component {
             isSelectingFile: false,
             refreshPage: true,
             isUploading: false,
-            files: [...this.state.files, response.data.data],
             selectedFile: null,
             isUploadingInBackground: false,
-            fileSize: 0,
           });
+          appHistory.push("/");
+          appHistory.go();
         })
         .catch((error) => {
           this.setState({
