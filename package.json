@@ -15,7 +15,6 @@
     "history": "^5.0.0",
     "js-file-download": "^0.4.12",
     "moment": "^2.27.0",
-    "qrcode.react": "^1.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-fontawesome": "^1.7.1",

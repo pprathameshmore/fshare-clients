@@ -8,7 +8,6 @@ import "./Download.css";
 
 import { API_URL } from "../../Configs/index";
 import Footer from "../Footer/Footer";
-import QRCodeGenerate from "../QRCode/QRCodeGenerate";
 
 export class Download extends Component {
   constructor(props) {
