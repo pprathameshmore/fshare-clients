@@ -75,6 +75,7 @@ export class Homepage extends Component {
   }
 
   componentDidMount() {
+    console.log("App loaded");
     socket.on("user", (user) => {
       this.popup.close();
       console.log(user);

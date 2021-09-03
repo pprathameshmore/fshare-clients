@@ -63,7 +63,6 @@ export class Download extends Component {
       },
 
       { responseType: "arraybuffer" }
-
     )
       .then((data) => {
         this.setState({
@@ -155,7 +154,7 @@ export class Download extends Component {
                     )}
                   </div>
                   <div className="col text-center">
-                    <QRCodeGenerate url={shortUrl} />
+                    {/* <QRCodeGenerate url={shortUrl} /> */}
                   </div>
                 </div>
               </div>
